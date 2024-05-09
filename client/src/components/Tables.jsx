@@ -8,8 +8,8 @@ import {
   faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import FormsModal from "./forms.js";
-import ViewUserModal from "./UserInfoBox.js";
+import FormsModal from "./Forms.jsx";
+import ViewUserModal from "./UserInfo.jsx";
 
 function TableUsers({ users, setUsers, setOnEdit }) {
   const [showModal, setShowModal] = useState(false);
