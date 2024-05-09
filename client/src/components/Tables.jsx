@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -10,22 +10,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FormsModal from "./Forms.jsx";
 import ViewUserModal from "./UserInfo.jsx";
+import { AppContext } from "./AppContextProvider.jsx";
 
 function TableUsers({ users, setUsers, setOnEdit }) {
-  const [showModal, setShowModal] = useState(false);
+  const { setShowModalViewUser, showModalViewUser, setShowModalEditUser, showModalEditUser } = useContext(AppContext);
+
   const openEditModal = (item) => {
     setOnEdit(item);
-    setShowModal(true);
+    setShowModalEditUser(true);
+    console.log(showModalEditUser);
   };
-  const closeEditModal = () => {
-    setShowModal(false);
-  };
+
   const openViewUser = (item) => {
-    setShowModal(true);
+    setOnEdit(item);
+    setShowModalViewUser(true);
   };
-  const closeViewUser = () => {
-    setShowModal(false);
-  };
+
   const handleDelete = async (id) => {
     await axios
       .delete("http://localhost:8800/" + id)
@@ -81,8 +81,8 @@ function TableUsers({ users, setUsers, setOnEdit }) {
           ))}
         </tbody>
       </Table>
-      <FormsModal show={showModal} onHide={closeEditModal} />
-      <ViewUserModal show={showModal} onHide={closeViewUser} />
+      <FormsModal show={showModalEditUser}  />
+      <ViewUserModal show={showModalViewUser}  />
     </div>
   );
 }
