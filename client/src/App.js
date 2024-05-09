@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 // import Modal from 'react-bootstrap/Modal';
-import FormsModal from "./components/forms.js";
-import TableUsers from "./components/tables.js";
 import GlobalStyle from "./styles/global.js";
 // import styled from "styled-components";
 import Container from "./styles/containerStyles.js";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import FormsModal from "./components/Forms.jsx";
+import TableUsers from "./components/Tables.jsx";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
