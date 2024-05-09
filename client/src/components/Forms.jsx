@@ -1,24 +1,167 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React, { useState } from "react";
+import { Form, Button, Modal } from "react-bootstrap";
 
 function FormsModal(props) {
+  const [age, setAge] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    b_date: "",
+    age: "",
+    state: "",
+    city: "",
+    neighborhood: "",
+    road: "",
+    biography: "",
+  });
+  const [isModalClosed, setIsModalClosed] = useState(false);
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleDateChange = (e) => {
+    const birthDate = new Date(e.target.value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    setAge(age);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setAge("");
+    setIsModalClosed(true);
+    console.log(formData);
+    props.onHide();
+  };
+
+  const resetFormFields = () => {
+    setFormData({
+      name: "",
+      b_date: "",
+      age: "",
+      state: "",
+      city: "",
+      neighborhood: "",
+      road: "",
+      biography: "",
+    });
+    setAge("");
+    setIsModalClosed(false);
+  };
+
   return (
-    <Modal show={props.show} onHide={props.onHide}>
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={props.onHide}>
-            Close
+    <Modal
+      show={props.show}
+      onHide={() => {
+        props.onHide();
+        resetFormFields();
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Informações Pessoais</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formName">
+            <Form.Label>Nome</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Digite seu nome"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBDate">
+            <Form.Label>Data de Nascimento</Form.Label>
+            <Form.Control
+              type="date"
+              name="b_date"
+              placeholder="Selecione sua data de nascimento"
+              onChange={handleDateChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formAge">
+            <Form.Label>Idade</Form.Label>
+            <Form.Control
+              type="number"
+              name="age"
+              placeholder="Sua idade"
+              value={age}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group controlId="formState">
+            <Form.Label>Estado</Form.Label>
+            <Form.Control
+              type="text"
+              name="state"
+              placeholder="Digite seu estado"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formCity">
+            <Form.Label>Cidade</Form.Label>
+            <Form.Control
+              type="text"
+              name="city"
+              placeholder="Digite sua cidade"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formNeighborhood">
+            <Form.Label>Bairro</Form.Label>
+            <Form.Control
+              type="text"
+              name="neighborhood"
+              placeholder="Digite seu bairro"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formRoad">
+            <Form.Label>Rua</Form.Label>
+            <Form.Control
+              type="text"
+              name="road"
+              placeholder="Digite sua rua"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBiography">
+            <Form.Label>Biografia</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="biography"
+              rows={3}
+              placeholder="Digite sua biografia"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Salvar Alterações
           </Button>
-          <Button variant="primary">Save changes</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            props.onHide();
+            resetFormFields();
+          }}
+        >
+          Fechar
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 }
