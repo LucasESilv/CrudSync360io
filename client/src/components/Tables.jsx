@@ -6,16 +6,16 @@ import {
   faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import ViewUserModal from "./UserInfo.jsx";
 import { AppContext } from "./AppContextProvider.jsx";
 import { useUsers } from "../hook/useUsers.jsx";
 import { useDeleteUsers } from "../hook/useDeleteUsers.jsx";
 import { FormsEditUsers } from "./FormsEditUser.jsx";
+import { ViewUserModal } from "./UserCard.jsx";
 
 export const TableUsers = () => {
   const {
     setShowModalViewUser,
-    showModalViewUser,
+    setViewingUser,
     setShowModalEditUser,
     showModalEditUser,
     setEditingUser,
@@ -39,7 +39,9 @@ export const TableUsers = () => {
   };
 
   const openViewUser = (item) => {
+    setViewingUser(item);
     setShowModalViewUser(true);
+    console.log(item);
   };
 
   const handleDelete = (id) => {
@@ -103,7 +105,7 @@ export const TableUsers = () => {
         </tbody>
       </Table>
       <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
-      <ViewUserModal show={showModalViewUser} />
+      <ViewUserModal show={setShowModalViewUser} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ export const AppContextProvider = ({ children }) => {
   const [showModalEditUser, setShowModalEditUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [showUserImage, setShowUserImage] = useState("");
+  const [viewingUser, setViewingUser] = useState(null); 
   return (
     <AppContext.Provider
       value={{
@@ -19,6 +20,8 @@ export const AppContextProvider = ({ children }) => {
         setEditingUser,
         showUserImage,
         setShowUserImage,
+        viewingUser,
+        setViewingUser,
       }}
     >
       {children}

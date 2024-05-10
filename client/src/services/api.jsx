@@ -44,3 +44,13 @@ export const updateUser = async (userData, id) => {
     throw error;
   }
 };
+
+export const getImgUser = async (imageUrl) => {
+  try {
+    const response = await axios.get(imageUrl);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao obter imagem do usuário");
+    throw error;
+  }
+};
