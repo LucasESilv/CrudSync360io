@@ -41,7 +41,7 @@ export const FormsEditUsers = () => {
     event.preventDefault();
     setShowModalEditUser(false);
     const userData = extractUserData();
-    await updateUserHandler(editingUser.id, userData);;
+    await updateUserHandler(editingUser.id, userData);
     formRef.current?.reset();
   };
 

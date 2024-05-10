@@ -5,7 +5,7 @@ export const AppContextProvider = ({ children }) => {
   const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [showModalEditUser, setShowModalEditUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
-  const [showUserImage, setShowUserImage] = useState('');
+  const [showUserImage, setShowUserImage] = useState("");
   return (
     <AppContext.Provider
       value={{

@@ -1,5 +1,4 @@
 import { Button, Container } from "react-bootstrap";
-
 import { useContext, useState } from "react";
 import { AppContext } from "./AppContextProvider";
 import { FormsModal } from "./FormsAdd.jsx";
@@ -10,8 +9,8 @@ export const HeaderComponent = () => {
     useContext(AppContext);
   const [users, setUsers] = useState([]);
   const openModalForm = async () => {
-    const imageUrl = await fetchRandomImage(); // Gera a imagem localmente
-    setShowUserImage(imageUrl); // Atualiza o estado local com a URL da imagem
+    const imageUrl = await fetchRandomImage();
+    setShowUserImage(imageUrl);
     setShowModalForm(true);
   };
 
@@ -20,7 +19,6 @@ export const HeaderComponent = () => {
       "https://source.unsplash.com/random/800x600?people"
     );
     const imageUrl = response.url;
-    console.log(imageUrl);
     return imageUrl;
   };
 

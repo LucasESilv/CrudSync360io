@@ -12,7 +12,7 @@ import { useUsers } from "../hook/useUsers.jsx";
 import { useDeleteUsers } from "../hook/useDeleteUsers.jsx";
 import { FormsEditUsers } from "./FormsEditUser.jsx";
 
-export const TableUsers = () =>{
+export const TableUsers = () => {
   const {
     setShowModalViewUser,
     showModalViewUser,
@@ -35,9 +35,8 @@ export const TableUsers = () =>{
 
   const openEditModal = (item) => {
     setEditingUser(item);
-    setShowModalEditUser(true); 
+    setShowModalEditUser(true);
   };
-  
 
   const openViewUser = (item) => {
     setShowModalViewUser(true);
@@ -107,4 +106,4 @@ export const TableUsers = () =>{
       <ViewUserModal show={showModalViewUser} />
     </div>
   );
-}
+};

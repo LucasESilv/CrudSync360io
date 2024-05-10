@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { Form } from "react-bootstrap";
 import { ModalComponent } from "./ModalComponent";
 import { AppContext } from "./AppContextProvider";
@@ -6,7 +6,8 @@ import { useCreateUsers } from "../hook/useCreateUsers";
 import { useUsers } from "../hook/useUsers";
 
 export const FormsModal = () => {
-  const { showModalForm, setShowModalForm, showUserImage } = useContext(AppContext);
+  const { showModalForm, setShowModalForm, showUserImage } =
+    useContext(AppContext);
   const nameRef = useRef(null);
   const b_dateRef = useRef(null);
   const ageRef = useRef(null);
@@ -15,7 +16,6 @@ export const FormsModal = () => {
   const neighborhoodRef = useRef(null);
   const roadRef = useRef(null);
   const biographyRef = useRef(null);
-  const imageRef = useRef(null);
   const formRef = useRef(null);
 
   const { refetchUsers } = useUsers();
@@ -44,7 +44,6 @@ export const FormsModal = () => {
     setShowModalForm(false);
     const userData = extractUserData();
     await createUserHandler(userData);
-    console.log(userData);
     formRef.current?.reset();
     refetchUsers();
   };
@@ -63,7 +62,7 @@ export const FormsModal = () => {
     };
     return userData;
   };
-  
+
   if (createLoading) return <div>Loading...</div>;
   if (createError) return <div>Error: {createError.message}</div>;
 
@@ -76,7 +75,12 @@ export const FormsModal = () => {
         onSave={handleSubmit}
       >
         <p>Imagem do usuário</p>
-        <img src={showUserImage} alt="Imagem do Usuário" style={{ width: '100px', height: '100px' }}  className="justify-content-center"/>
+        <img
+          src={showUserImage}
+          alt="Imagem do Usuário"
+          style={{ width: "100px", height: "100px" }}
+          className="justify-content-center"
+        />
         <Form onSubmit={handleSubmit} ref={formRef}>
           <Form.Group controlId="formName">
             <Form.Label>Nome</Form.Label>
