@@ -41,7 +41,6 @@ export const  FormsModal   = ({user, props}) =>{
     event.preventDefault();
     setShowModalForm(false);
     const userData = extractUserData();
-    console.log("Dados do formulário:", userData);
     await createUserHandler(userData);
     formRef.current?.reset();
     refetchUsers();

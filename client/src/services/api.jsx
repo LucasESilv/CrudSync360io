@@ -6,7 +6,6 @@ const API_URL = "http://localhost:8800";
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/`);
-    console.log(response);
     return response.data;
   } catch (error) {
     toast.error(error);
