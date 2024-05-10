@@ -3,7 +3,6 @@ import { Form } from "react-bootstrap";
 import { ModalComponent } from "./ModalComponent";
 import { AppContext } from "./AppContextProvider";
 import { useCreateUsers } from "../hook/useCreateUsers";
-import { useUsers } from "../hook/useUsers";
 
 export const FormsModal = () => {
   const { showModalForm, setShowModalForm, showUserImage } =
@@ -18,7 +17,6 @@ export const FormsModal = () => {
   const biographyRef = useRef(null);
   const formRef = useRef(null);
 
-  const { refetchUsers } = useUsers();
   const {
     isLoading: createLoading,
     error: createError,
@@ -45,7 +43,6 @@ export const FormsModal = () => {
     const userData = extractUserData();
     await createUserHandler(userData);
     formRef.current?.reset();
-    refetchUsers();
   };
 
   const extractUserData = () => {

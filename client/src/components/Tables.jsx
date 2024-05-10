@@ -20,13 +20,14 @@ export const TableUsers = () => {
     showModalEditUser,
     setEditingUser,
     editingUser,
-  } = useContext(AppContext);
-  const {
     users,
+  } = useContext(AppContext);
+
+  const {
     isLoading: usersLoading,
     error: usersError,
-    refetchUsers,
   } = useUsers();
+
   const {
     deleteUserById,
     isLoading: deleteLoading,
@@ -45,9 +46,7 @@ export const TableUsers = () => {
   };
 
   const handleDelete = (id) => {
-    deleteUserById(id, () => {
-      refetchUsers();
-    });
+    deleteUserById(id)
   };
 
   if (usersLoading) return <div>Loading...</div>;

@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getUsers } from "../services/api";
+import { AppContext } from "../components/AppContextProvider";
 
 export const useUsers = () => {
-  const [users, setUsers] = useState([]);
+  const {users, setUsers} = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const getUsersData = async () => {
