@@ -24,10 +24,12 @@ export const HeaderComponent = () => {
 
   return (
     <>
-      <Container className="d-flex flex-column justify-content-center ">
-        <Button variant="primary" onClick={openModalForm}>
-          Open Modal
-        </Button>
+      <Container className="d-flex flex-column justify-content-center align-items-start">
+        <div className="d-flex justify-content-end w-100 mb-3">
+          <Button variant="primary" onClick={openModalForm} className="ms-3">
+            Open Modal
+          </Button>
+        </div>
         <FormsModal showUserImage={showUserImage} />
         <TableUsers users={users} setUsers={setUsers} />
       </Container>

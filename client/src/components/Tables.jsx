@@ -23,10 +23,7 @@ export const TableUsers = () => {
     users,
   } = useContext(AppContext);
 
-  const {
-    isLoading: usersLoading,
-    error: usersError,
-  } = useUsers();
+  const { isLoading: usersLoading, error: usersError } = useUsers();
 
   const {
     deleteUserById,
@@ -47,7 +44,7 @@ export const TableUsers = () => {
   };
 
   const handleDelete = (id) => {
-    deleteUserById(id)
+    deleteUserById(id);
   };
 
   if (usersLoading) return <div>Loading...</div>;
@@ -62,50 +59,50 @@ export const TableUsers = () => {
 
   return (
     <div>
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Data de Nascimento</th>
-            <th>Estado</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((item, i) => (
-            <tr key={i}>
-              <td align="center">{item.name}</td>
-              <td align="center">{item.age}</td>
-              <td align="center">{item.b_date}</td>
-              <td align="center">{item.state}</td>
-              <td align="center">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  onClick={() => openViewUser(item)}
-                />
-              </td>
-              <td align="center">
-                <FontAwesomeIcon
-                  icon={faPenSquare}
-                  onClick={() => openEditModal(item)}
-                />
-              </td>
-              <td align="center">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleDelete(item.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              </td>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th align="center">Nome</th>
+              <th align="center"> Idade</th>
+              <th align="center">Estado</th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-      <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
-      <ViewUserModal show={setShowModalViewUser} />
+          </thead>
+          <tbody>
+            {users.map((item, i) => (
+              <tr key={i}>
+                <td align="center">{item.name}</td>
+                <td align="center">{item.age}</td>
+                <td align="center">{item.state}</td>
+                <td align="center">
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    onClick={() => openViewUser(item)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </td>
+                <td align="center">
+                  <FontAwesomeIcon
+                    icon={faPenSquare}
+                    onClick={() => openEditModal(item)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </td>
+                <td align="center">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={() => handleDelete(item.id)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
+        <ViewUserModal show={setShowModalViewUser} />
     </div>
   );
 };
