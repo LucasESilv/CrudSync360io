@@ -88,7 +88,7 @@ export const FormsEditUsers = () => {
       >
         <Form onSubmit={handleSubmit} ref={formRef}>
           <img
-            src={editingUser.image_url}
+            src={editingUser?.image_url}
             alt="Imagem do Usuário"
             style={{ width: "100px", height: "100px" }}
             className="justify-content-center"

@@ -4,7 +4,7 @@ import { AppContext } from "./AppContextProvider";
 import { Card } from "react-bootstrap";
 
 export const ViewUserModal = () => {
-  const { showModalViewUser, setShowModalViewUser, viewingUser } =
+  const { showModalViewUser, viewingUser } =
     useContext(AppContext);
 
   return (
