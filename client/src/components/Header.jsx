@@ -27,7 +27,7 @@ export const HeaderComponent = () => {
       <Container className="d-flex flex-column justify-content-center align-items-start">
         <div className="d-flex justify-content-end w-100 mb-3">
           <Button variant="primary" onClick={openModalForm} className="ms-3">
-            Open Modal
+            Adicionar usuário
           </Button>
         </div>
         <FormsModal showUserImage={showUserImage} />
