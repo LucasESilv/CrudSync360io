@@ -12,28 +12,10 @@ export const getUsers = (_req, res) => {
   });
 };
 
-//Get one user
-export const getUserById = (req, res) => {
-  const { id } = req.params;
-  const query = "SELECT * FROM users WHERE id = ?";
-  db.query(query, [id], (err, data) => {
-    if (err) {
-      console.error("Erro ao consultar usuário:", err);
-      return res
-        .status(500)
-        .json({ error: "Erro interno do servidor", details: err.message });
-    }
-    if (data.length === 0) {
-      return res.status(404).json({ error: "Usuário não encontrado" });
-    }
-    return res.status(200).json(data[0]);
-  });
-};
-
 //Create a new user
-export const addUser = (req, res) => {
+export const addUser = (_req, res) => {
   const { name, b_date, age, state, city, neighborhood, road, biography } =
-    req.body;
+    _req.body;
   if (
     !name ||
     !b_date ||

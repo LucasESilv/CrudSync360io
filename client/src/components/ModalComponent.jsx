@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "./AppContextProvider";
 import { Button, Modal } from "react-bootstrap";
 
-export const ModalComponent = ({ children, saveInfo, titleModal, show }) => {
+export const ModalComponent = ({ children, saveInfo, titleModal, show, onSave }) => {
   const { setShowModalForm, setShowModalViewUser, setShowModalEditUser } =
     useContext(AppContext);
   const closeModal = () => {
@@ -24,7 +24,7 @@ export const ModalComponent = ({ children, saveInfo, titleModal, show }) => {
               Close
             </Button>
             {saveInfo && (
-              <Button variant="primary" onClick={saveInfo}>
+              <Button variant="primary" onClick={onSave}>
                 {saveInfo}
               </Button>
             )}

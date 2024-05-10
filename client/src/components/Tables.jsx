@@ -1,42 +1,64 @@
 import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenSquare,
   faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import FormsModal from "./Forms.jsx";
 import ViewUserModal from "./UserInfo.jsx";
 import { AppContext } from "./AppContextProvider.jsx";
+import { useUsers } from "../hook/useUsers.jsx";
+import { useDeleteUsers } from "../hook/useDeleteUsers.jsx";
+import { FormsEditUsers } from "./FormsEditUser.jsx";
 
-function TableUsers({ users, setUsers, setOnEdit }) {
-  const { setShowModalViewUser, showModalViewUser, setShowModalEditUser, showModalEditUser } = useContext(AppContext);
+export const TableUsers = ({setOnEdit}) =>{
+  const {
+    setShowModalViewUser,
+    showModalViewUser,
+    setShowModalEditUser,
+    showModalEditUser,
+    setEditingUser,
+    editingUser,
+  } = useContext(AppContext);
+  const {
+    users,
+    isLoading: usersLoading,
+    error: usersError,
+    refetchUsers,
+  } = useUsers();
+  const {
+    deleteUserById,
+    isLoading: deleteLoading,
+    error: deleteError,
+  } = useDeleteUsers();
 
   const openEditModal = (item) => {
-    setOnEdit(item);
-    setShowModalEditUser(true);
-    console.log(showModalEditUser);
+    setEditingUser(item);
+    setShowModalEditUser(true); 
   };
+  
 
   const openViewUser = (item) => {
-    setOnEdit(item);
     setShowModalViewUser(true);
   };
 
-  const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:8800/" + id)
-      .then(({ data }) => {
-        const newArray = users.filter((user) => user.id !== id);
-        setUsers(newArray);
-        toast.success(data);
-      })
-      .catch(({ data }) => toast.error(data));
-    setOnEdit(null);
+  const handleDelete = (id) => {
+    deleteUserById(id, () => {
+      refetchUsers();
+    });
   };
+
+  if (usersLoading) return <div>Loading...</div>;
+
+  if (usersError) return <div>Error: {usersError.message}</div>;
+
+  if (!users || users.length === 0) return <div>Usuários não encontrados.</div>;
+
+  if (deleteLoading) return <div>Deletando usuário...</div>;
+
+  if (deleteError) return <div>Error: {deleteError.message}</div>;
+
   return (
     <div>
       <Table responsive>
@@ -81,10 +103,8 @@ function TableUsers({ users, setUsers, setOnEdit }) {
           ))}
         </tbody>
       </Table>
-      <FormsModal show={showModalEditUser}  />
-      <ViewUserModal show={showModalViewUser}  />
+      <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
+      <ViewUserModal show={showModalViewUser} />
     </div>
   );
 }
-
-export default TableUsers;
