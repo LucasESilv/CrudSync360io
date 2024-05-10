@@ -5,7 +5,7 @@ import { AppContext } from "./AppContextProvider";
 import { useCreateUsers } from "../hook/useCreateUsers";
 import { useUsers } from "../hook/useUsers";
 
-export const FormsModal = ({ user, props }) => {
+export const FormsModal = () => {
   const { showModalForm, setShowModalForm, showUserImage } = useContext(AppContext);
   const nameRef = useRef(null);
   const b_dateRef = useRef(null);
