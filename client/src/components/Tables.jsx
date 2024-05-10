@@ -12,7 +12,7 @@ import { useUsers } from "../hook/useUsers.jsx";
 import { useDeleteUsers } from "../hook/useDeleteUsers.jsx";
 import { FormsEditUsers } from "./FormsEditUser.jsx";
 
-export const TableUsers = ({setOnEdit}) =>{
+export const TableUsers = () =>{
   const {
     setShowModalViewUser,
     showModalViewUser,

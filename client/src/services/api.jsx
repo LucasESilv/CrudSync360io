@@ -43,4 +43,4 @@ export const updateUser = async (userData, id) => {
     toast.error(error);
     throw error;
   }
-}
+};

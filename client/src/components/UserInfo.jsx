@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ModalComponent } from "./ModalComponent";
 import { AppContext } from "./AppContextProvider";
 
-export const ViewUserModal = (props) => {
+export const ViewUserModal = () => {
   const { showModalViewUser } = useContext(AppContext);
   return (
     <>
