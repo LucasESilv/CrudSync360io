@@ -14,7 +14,7 @@ export const getUsers = (_req, res) => {
 
 //Create a new user
 export const addUser = (_req, res) => {
-  const { name, b_date, age, state, city, neighborhood, road, biography } =
+  const { name, b_date, age, state, city, neighborhood, road, biography, image_url } =
     _req.body;
   if (
     !name ||
@@ -24,14 +24,15 @@ export const addUser = (_req, res) => {
     !city ||
     !neighborhood ||
     !road ||
-    !biography
+    !biography ||
+    !image_url
   ) {
     return res
       .status(400)
       .json({ error: "Todos os campos devem ser fornecidos." });
   }
   const query =
-    "INSERT INTO users(name, b_date, age, state, city, neighborhood, road, biography) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO users(name, b_date, age, state, city, neighborhood, road, biography, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
   const values = [
     name,
     b_date,
@@ -41,6 +42,7 @@ export const addUser = (_req, res) => {
     neighborhood,
     road,
     biography,
+    image_url,
   ];
   db.query(query, values, (err, result) => {
     if (err) {

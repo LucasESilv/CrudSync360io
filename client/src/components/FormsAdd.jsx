@@ -1,12 +1,12 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { ModalComponent } from "./ModalComponent";
 import { AppContext } from "./AppContextProvider";
 import { useCreateUsers } from "../hook/useCreateUsers";
 import { useUsers } from "../hook/useUsers";
 
-export const  FormsModal   = ({user, props}) =>{
-  const { showModalForm, setShowModalForm } = useContext(AppContext);
+export const FormsModal = ({ user, props }) => {
+  const { showModalForm, setShowModalForm, showUserImage } = useContext(AppContext);
   const nameRef = useRef(null);
   const b_dateRef = useRef(null);
   const ageRef = useRef(null);
@@ -15,6 +15,7 @@ export const  FormsModal   = ({user, props}) =>{
   const neighborhoodRef = useRef(null);
   const roadRef = useRef(null);
   const biographyRef = useRef(null);
+  const imageRef = useRef(null);
   const formRef = useRef(null);
 
   const { refetchUsers } = useUsers();
@@ -23,6 +24,7 @@ export const  FormsModal   = ({user, props}) =>{
     error: createError,
     createUserHandler,
   } = useCreateUsers();
+
   const handleDateChange = (e) => {
     const birthDate = new Date(e.target.value);
     const today = new Date();
@@ -42,6 +44,7 @@ export const  FormsModal   = ({user, props}) =>{
     setShowModalForm(false);
     const userData = extractUserData();
     await createUserHandler(userData);
+    console.log(userData);
     formRef.current?.reset();
     refetchUsers();
   };
@@ -56,10 +59,11 @@ export const  FormsModal   = ({user, props}) =>{
       neighborhood: neighborhoodRef.current.value,
       road: roadRef.current.value,
       biography: biographyRef.current.value,
+      image_url: showUserImage,
     };
     return userData;
   };
-
+  
   if (createLoading) return <div>Loading...</div>;
   if (createError) return <div>Error: {createError.message}</div>;
 
@@ -71,6 +75,8 @@ export const  FormsModal   = ({user, props}) =>{
         saveInfo={"Salvar informações"}
         onSave={handleSubmit}
       >
+        <p>Imagem do usuário</p>
+        <img src={showUserImage} alt="Imagem do Usuário" style={{ width: '100px', height: '100px' }}  className="justify-content-center"/>
         <Form onSubmit={handleSubmit} ref={formRef}>
           <Form.Group controlId="formName">
             <Form.Label>Nome</Form.Label>
@@ -151,4 +157,4 @@ export const  FormsModal   = ({user, props}) =>{
       </ModalComponent>
     </>
   );
-}
+};
