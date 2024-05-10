@@ -34,13 +34,11 @@ export const TableUsers = () => {
   const openEditModal = (item) => {
     setEditingUser(item);
     setShowModalEditUser(true);
-    console.log(item);
   };
 
   const openViewUser = (item) => {
     setViewingUser(item);
     setShowModalViewUser(true);
-    console.log(item);
   };
 
   const handleDelete = (id) => {

@@ -21,7 +21,7 @@ export const ViewUserModal = () => {
             <Card.Title>{viewingUser.name}</Card.Title>
             <Card.Text>
               <img
-                src={viewingUser?.image_url} // Ajuste aqui para usar image_url
+                src={viewingUser?.image_url} 
                 alt="Imagem do Usuário"
                 style={{ width: "100px", height: "100px" }}
                 className="justify-content-center"

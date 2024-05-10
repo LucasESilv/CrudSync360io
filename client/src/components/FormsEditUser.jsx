@@ -38,7 +38,6 @@ export const FormsEditUsers = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log(editingUser);
     event.preventDefault();
     setShowModalEditUser(false);
     const userData = extractUserData();
