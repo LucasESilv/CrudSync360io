@@ -38,6 +38,7 @@ export const FormsEditUsers = () => {
   };
 
   const handleSubmit = async (event) => {
+    console.log(editingUser);
     event.preventDefault();
     setShowModalEditUser(false);
     const userData = extractUserData();
@@ -86,6 +87,12 @@ export const FormsEditUsers = () => {
         onSave={handleSubmit}
       >
         <Form onSubmit={handleSubmit} ref={formRef}>
+          <img
+            src={editingUser.image_url}
+            alt="Imagem do Usuário"
+            style={{ width: "100px", height: "100px" }}
+            className="justify-content-center"
+          />
           <Form.Group controlId="formName">
             <Form.Label>Nome</Form.Label>
             <Form.Control
