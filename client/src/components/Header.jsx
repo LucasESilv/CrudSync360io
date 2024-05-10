@@ -1,10 +1,11 @@
 import { Button, Container } from "react-bootstrap";
-import FormsModal from "./Forms";
-import TableUsers from "./Tables";
+
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AppContext } from "./AppContextProvider";
+import { FormsModal } from "./FormsAdd.jsx";
+import { TableUsers } from "./Tables.jsx";
 
 export const HeaderComponent = () => {
   const { setShowModalForm } = useContext(AppContext);
