@@ -16,7 +16,7 @@ export const HeaderComponent = () => {
 
   const fetchRandomImage = async () => {
     const response = await fetch(
-      "https://source.unsplash.com/random/800x600?people"
+      "https://picsum.photos/200/300?random"
     );
     const imageUrl = response.url;
     return imageUrl;

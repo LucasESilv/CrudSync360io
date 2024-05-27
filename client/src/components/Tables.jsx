@@ -21,15 +21,12 @@ export const TableUsers = () => {
     setEditingUser,
     editingUser,
     users,
+    setUsers, 
+    viewingUser
   } = useContext(AppContext);
 
   const { isLoading: usersLoading, error: usersError } = useUsers();
-
-  const {
-    deleteUserById,
-    isLoading: deleteLoading,
-    error: deleteError,
-  } = useDeleteUsers();
+  const { deleteUserById, isLoading: deleteLoading, error: deleteError } = useDeleteUsers();
 
   const openEditModal = (item) => {
     setEditingUser(item);
@@ -39,68 +36,69 @@ export const TableUsers = () => {
   const openViewUser = (item) => {
     setViewingUser(item);
     setShowModalViewUser(true);
-  };
-
-  const handleDelete = (id) => {
-    deleteUserById(id);
+  };  const handleDelete = (id) => {
+    deleteUserById(id, () => {
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      if (editingUser && editingUser.id === id) {
+        setEditingUser(null);
+        setShowModalEditUser(false);
+      }
+      if (viewingUser && viewingUser.id === id) {
+        setViewingUser(null);
+        setShowModalViewUser(false);
+      }
+    });
   };
 
   if (usersLoading) return <div>Loading...</div>;
-
   if (usersError) return <div>Error: {usersError.message}</div>;
-
   if (!users || users.length === 0) return <div>Usuários não encontrados.</div>;
-
   if (deleteLoading) return <div>Deletando usuário...</div>;
-
   if (deleteError) return <div>Error: {deleteError.message}</div>;
 
   return (
     <div>
-        <Table responsive>
-          <thead>
-            <tr>
-              <th align="center">Nome</th>
-              <th align="center"> Idade</th>
-              <th align="center">Estado</th>
-              <th></th>
-              <th></th>
-              <th></th>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Estado</th>
+            <th align="center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((item, i) => (
+            <tr key={i}>
+              <td>{item.name}</td>
+              <td>{item.age}</td>
+              <td>{item.state}</td>
+              <td className="p-1">
+                <FontAwesomeIcon
+                  className="ms-1 me-1"
+                  icon={faUser}
+                  onClick={() => openViewUser(item)}
+                  style={{ cursor: "pointer" }}
+                />
+                <FontAwesomeIcon
+                  className="ms-1 me-1"
+                  icon={faPenSquare}
+                  onClick={() => openEditModal(item)}
+                  style={{ cursor: "pointer" }}
+                />
+                <FontAwesomeIcon
+                  className="ms-1 me-1"
+                  icon={faTrash}
+                  onClick={() => handleDelete(item.id)}
+                  style={{ cursor: "pointer" }}
+                />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {users.map((item, i) => (
-              <tr key={i}>
-                <td align="center">{item.name}</td>
-                <td align="center">{item.age}</td>
-                <td align="center">{item.state}</td>
-                <td align="center">
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    onClick={() => openViewUser(item)}
-                    style={{ cursor: "pointer" }}
-                  />
-                </td>
-                <td align="center">
-                  <FontAwesomeIcon
-                    icon={faPenSquare}
-                    onClick={() => openEditModal(item)}
-                    style={{ cursor: "pointer" }}
-                  />
-                </td>
-                <td align="center">
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={() => handleDelete(item.id)}
-                    style={{ cursor: "pointer" }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
-        <ViewUserModal show={setShowModalViewUser} />
+          ))}
+        </tbody>
+      </Table>
+      <FormsEditUsers show={showModalEditUser} editingUser={editingUser} />
+      <ViewUserModal show={setShowModalViewUser} />
     </div>
   );
 };
