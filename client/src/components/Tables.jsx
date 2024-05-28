@@ -21,12 +21,16 @@ export const TableUsers = () => {
     setEditingUser,
     editingUser,
     users,
-    setUsers, 
-    viewingUser
+    setUsers,
+    viewingUser,
   } = useContext(AppContext);
 
   const { isLoading: usersLoading, error: usersError } = useUsers();
-  const { deleteUserById, isLoading: deleteLoading, error: deleteError } = useDeleteUsers();
+  const {
+    deleteUserById,
+    isLoading: deleteLoading,
+    error: deleteError,
+  } = useDeleteUsers();
 
   const openEditModal = (item) => {
     setEditingUser(item);
@@ -36,7 +40,9 @@ export const TableUsers = () => {
   const openViewUser = (item) => {
     setViewingUser(item);
     setShowModalViewUser(true);
-  };  const handleDelete = (id) => {
+  };
+  
+  const handleDelete = (id) => {
     deleteUserById(id, () => {
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
       if (editingUser && editingUser.id === id) {

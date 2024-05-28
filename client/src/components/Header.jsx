@@ -8,6 +8,7 @@ export const HeaderComponent = () => {
   const { setShowModalForm, showUserImage, setShowUserImage } =
     useContext(AppContext);
   const [users, setUsers] = useState([]);
+ 
   const openModalForm = async () => {
     const imageUrl = await fetchRandomImage();
     setShowUserImage(imageUrl);
@@ -15,9 +16,7 @@ export const HeaderComponent = () => {
   };
 
   const fetchRandomImage = async () => {
-    const response = await fetch(
-      "https://picsum.photos/200/300?random"
-    );
+    const response = await fetch("https://picsum.photos/200/300?random");
     const imageUrl = response.url;
     return imageUrl;
   };
